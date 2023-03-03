@@ -1,0 +1,10 @@
+class Solution {
+    public int strStr(String hay, String ne) {
+        int result = -1;                                
+        if(hay.contains(ne)) {                
+            int index = hay.indexOf(ne);      
+            result = index;                             
+        }
+    return result;                                     
+    }
+}
