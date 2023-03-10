@@ -1,0 +1,12 @@
+class Solution {
+    ArrayList<Integer> res = new ArrayList<>(); 
+    public Solution(ListNode head) { 
+        while(head != null){
+            res.add(head.val);
+            head = head.next;
+        }
+    }
+    public int getRandom() { 
+        return res.get((int)(Math.random() * res.size()));
+    }
+}
