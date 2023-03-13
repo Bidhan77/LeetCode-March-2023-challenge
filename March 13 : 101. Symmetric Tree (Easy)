@@ -1,0 +1,19 @@
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        if (root == null)
+		    return true;
+	    return Symmetric(root.left, root.right);
+    }
+    public boolean Symmetric(TreeNode rootleft, TreeNode rootright) {
+	    if (rootleft == null && rootright == null) {
+		    return true;
+	    }
+         if (rootright == null || rootleft == null) {
+		    return false;
+	    }
+        if (rootleft.val != rootright.val)
+		    return false;
+            
+        return Symmetric(rootleft.left, rootright.right) && Symmetric(rootleft.right, rootright.left);
+    }
+}
