@@ -1,0 +1,19 @@
+class Solution {
+    int ans=0;
+    void solve(TreeNode root,int prev)
+    {
+        if(root==null) return ;
+        int curr=prev*10+root.val;
+        if(root.left==null && root.right==null)
+        {
+            ans+=curr;
+            return;
+        }
+        solve(root.left,curr);
+        solve(root.right,curr);
+    }
+    public int sumNumbers(TreeNode root) {
+        solve(root,0);
+        return ans;
+    }
+}
