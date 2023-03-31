@@ -1,0 +1,47 @@
+class Solution {
+    public int ways(String[] pizza, int k) {
+
+        int rows = pizza.length, cols = pizza[0].length();
+        int[][] apple = new int[rows + 1][cols + 1];
+        int[][][] dp = new int[k][rows][cols];
+
+        for (int i = rows - 1; i >= 0; i--) {
+            for (int j = cols - 1; j >= 0; j--) {
+                apple[i][j] = (pizza[i].charAt(j) == 'A' ? 1 : 0) + 
+                                apple[i + 1][j] + apple[i][j + 1] - apple[i + 1][j + 1];
+
+                dp[0][i][j] = apple[i][j] > 0 ? 1 : 0;
+            }
+        }
+
+
+
+        int mod = 1000 * 1000 * 1000 + 7;
+
+        for (int remain = 1; remain < k; remain++) {
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+
+                    for (int nextR = i + 1; nextR < rows; nextR++) {
+                        if (apple[i][j] - apple[nextR][j] > 0) {
+                            dp[remain][i][j] += dp[remain - 1][nextR][j];
+                            dp[remain][i][j] %= mod;
+                        }
+                    }
+
+                    for (int nextC = j + 1; nextC < cols; nextC++) {
+                        if (apple[i][j] - apple[i][nextC] > 0) {
+                            dp[remain][i][j] += dp[remain - 1][i][nextC];
+                            dp[remain][i][j] %= mod;
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+        return dp[k - 1][0][0];
+        
+    }
+}
